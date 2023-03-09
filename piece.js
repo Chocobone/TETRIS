@@ -11,9 +11,9 @@ class Piece {
 	}
 	
 	spawn() {
-		this.color = 'blue';
+		this.color = 'purple';
 		this.shape = [
-			[2,0,0],
+			[0,2,0],
 			[2,2,2],
 			[0,0,0]
 		];
@@ -38,5 +38,6 @@ class Piece {
 		this.x = p.x;
 		this.y = p.y;
 	}	
+	
 }
 

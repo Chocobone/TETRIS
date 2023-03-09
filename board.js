@@ -32,25 +32,24 @@ class Board {
 		return this.grid[y] && this.grid[y][x] === 0;
 	}
 	
-	rotate(piece, direction) {
-    // Clone with JSON for immutability.
-    	let p = JSON.parse(JSON.stringify(piece));
-    	if (!piece.hardDropped) {
-      	// Transpose matrix
-      	for (let y = 0; y < p.shape.length; ++y) {
-        	for (let x = 0; x < y; ++x) {
-          	[p.shape[x][y], p.shape[y][x]] = [p.shape[y][x], p.shape[x][y]];
-        	}
-      	}
-      	// Reverse the order of the columns.
-      	if (direction === "Clock") {
-        	p.shape.forEach((row) => row.reverse());
-      	} else if (direction === "R_Clock") {
-    	    p.shape.reverse();
-	      }
-    }
-
-    return p;
-  }
+	rotate(p, direction) {
+	// Clone with JSON for immutability.
+	let clone = JSON.parse(JSON.stringify(p));
+	for (let y = 0; y < p.shape.length; ++y) {
+		for (let x = 0; x < y; ++x) {
+			[p.shape[x][y], p.shape[y][x]] = 
+			[p.shape[y][x], p.shape[x][y]];
+		}
+	}
 	
+	if (direction === 'clock') {
+	p.shape.forEach((row) => row.reverse());
+	} else if (direction === 'R_clock') {
+	p.shape.reverse();
+	}
+		  
+	return clone;
+	}
+
+    	
 }
