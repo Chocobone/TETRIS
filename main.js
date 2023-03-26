@@ -1,20 +1,18 @@
 const canvas = document.getElementById('board');
 const ctx = canvas.getContext('2d');
+const canvasNext = document.getElementById('next');
+const ctxNext = canvasNext.getContext('2d');
 
-ctx.canvas.width = COLS * BLOCK_SIZE;
-ctx.canvas.height = ROWS * BLOCK_SIZE;
 
-ctx.scale(BLOCK_SIZE, BLOCK_SIZE);
+let requestId = null;
+const time = {start:0, elapsed:0, level:1000};
 
-let board = new Board();
+let board = new Board(ctx, ctxNext);
 
 function play() {
 	board.reset();
-	
-	let piece = new Piece(ctx);
-	piece.draw();
-	
-	board.piece = piece;
+	board.draw();
+	animate();
 }
 
 const moves = {
@@ -49,6 +47,18 @@ document.addEventListener('keydown', event => {
     } // 그리기 전에 이전 좌표를 지운다.
 	
   }
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); 
-  board.piece.draw();
 });
+
+function animate(now = 0) {
+	time.elapsed = now - time.start;
+	
+	if(time.elapsed > time.level) {
+		time.start = now;
+		
+		board.drop();
+	}
+	ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
+	
+	board.draw();
+	requestId = requestAnimationFrame(animate);
+}

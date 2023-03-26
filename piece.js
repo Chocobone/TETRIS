@@ -1,26 +1,18 @@
 class Piece {
-	x;
-	y;
-	color;
-	shape;
-	ctx;
-	
+		
 	constructor(ctx) {
 		this.ctx = ctx;
 		this.spawn();
 	}
 	
 	spawn() {
-		this.color = 'purple';
-		this.shape = [
-			[0,2,0],
-			[2,2,2],
-			[0,0,0]
-		];
-		
-		this.x = 3;
+		const typeId = this.randomizePieceType(COLORS.length - 1);
+		alert(typeId);
+		this.color = COLORS[typeId];
+		this.shape = SHAPES[typeId];
+		this.x = 0;
 		this.y = 0;
-		
+		// this.hardDropped = false;
 	}
 	
 	draw() {
@@ -28,16 +20,26 @@ class Piece {
 		this.shape.forEach((row, y) => {
 			row.forEach((value, x) => {
 				if(value > 0) {
-					this.ctx.fillRect(this.x+x, this.y+y, 1, 1);
+					this.ctx.fillRect(this.x + x, this.y + y, 1, 1);
 				}
 			});
 		});
 	}
 	
 	move(p) {
-		this.x = p.x;
-		this.y = p.y;
+		if(!this.hardDropped) {
+			this.x = p.x;
+			this.y = p.y;
+		}
 	}	
+	
+	randomizePieceType(noOfTypes) {
+		return Math.floor(Math.random() * noOfTypes + 1);
+	}
+	
+	setStartPosition() {
+		this.x = this.typeId === 4 ? 4 : 3;
+	}
 	
 }
 
