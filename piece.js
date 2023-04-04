@@ -9,7 +9,7 @@ class Piece {
 		const typeId = this.randomizePieceType(COLORS.length);
 		this.color = COLORS[typeId];
 		this.shape = SHAPES[typeId];
-		this.x = 1;
+		this.x = 0;
 		this.y = 0;
 		this.hardDropped = false;
 	}
@@ -42,11 +42,8 @@ class Piece {
 			this.x = p.x;
 			this.y = p.y;
 		}
+		this.shape = p.shape;
 	}	
-	
-	randomizePieceType(noOfTypes) {
-		return Math.floor(Math.random() * noOfTypes);
-	}
 	
 	setStartPosition() {
 		this.x = this.typeId === 4 ? 4 : 3;
@@ -54,6 +51,11 @@ class Piece {
 	
 	hardDrop() {
 		this.hardDropped = true;
+	}
+	
+	//7bag으로 변형 예정
+	randomizePieceType(noOfTypes) {
+		return Math.floor(Math.random() * noOfTypes);
 	}
 	
 }

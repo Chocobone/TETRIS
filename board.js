@@ -62,10 +62,9 @@ class Board {
 	}
 	
 	//블록을 회전시킴(보드를 통화하는 버그 해결안됨)
-	//valid(p)의 문제는 아님(false값이 나옴)
-	rotate(p, direction) {
+	rotate(piece, direction) {
 		// Clone with JSON for immutability.
-		let clone = JSON.parse(JSON.stringify(p));
+		let p = JSON.parse(JSON.stringify(piece));
 		for (let y = 0; y < p.shape.length; ++y) {
 			for (let x = 0; x < y; ++x) {
 				[p.shape[x][y], p.shape[y][x]] = 
@@ -78,8 +77,9 @@ class Board {
 		} else if (direction === 'R_clock') {
 			p.shape.reverse();
 		}
+				
+		return p;
 		
-		return clone;
 	}
 
     drop() {

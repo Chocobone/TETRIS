@@ -77,6 +77,7 @@ document.addEventListener('keydown', event => {
     else if (board.valid(p)) {
       // 이동이 가능한 상태라면 조각을 이동한다.
     	board.piece.move(p);
+		
 		if(event.keyCode === KEY.DOWN) {
 			account.score += POINTS.SOFT_DROP;
 		}
