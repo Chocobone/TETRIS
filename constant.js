@@ -6,16 +6,6 @@ const COLS_NEXT = 4;
 const ROWS_NEXT = 4;
 const BLOCK_SIZE = 30;
 
-const KEY = {
-	LEFT: 37,
-	RIGHT: 39,
-	DOWN: 40,
-	SPACE: 32,
-	Z: 90,
-	X: 88
-}
-Object.freeze(KEY)
-
 const COLORS = [
 	'cyan',
 	'blue',
@@ -38,3 +28,34 @@ const SHAPES = [
   [[7, 7, 0], [0, 7, 7], [0, 0, 0]]
 ];
 
+const KEY = {
+	LEFT: 37,
+	RIGHT: 39,
+	DOWN: 40,
+	SPACE: 32,
+	Z: 90,
+	X: 88
+}
+
+const POINTS = {
+  SINGLE: 100,
+  DOUBLE: 300,
+  TRIPLE: 500,
+  TETRIS: 800,
+  SOFT_DROP: 1,
+  HARD_DROP: 2
+}
+
+const LINES_PER_LEVEL = 10;
+
+const LEVEL = {
+  1: 800,
+  2: 720,
+  3: 630,
+  4: 550,
+  // ...
+}
+
+Object.freeze(LEVEL);
+Object.freeze(KEY);
+Object.freeze(POINTS);
