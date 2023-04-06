@@ -35,7 +35,7 @@ class Board {
 		this.piece = this.next;
 		this.piece.setStartPosition();
 		
-		this.next = new Piece(this.ctx);
+		this.next.spawn();
 		this.ctxNext.clearRect(0, 0, BLOCK_SIZE, BLOCK_SIZE);
 		this.next.drawNext(this.ctxNext);
 	}

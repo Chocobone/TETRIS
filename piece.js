@@ -2,11 +2,13 @@ class Piece {
 		
 	constructor(ctx) {
 		this.ctx = ctx;
+		this.bag = new Array();
 		this.spawn();
 	}
 	
 	spawn() {
-		const typeId = this.randomizePieceType(COLORS.length);
+		// const typeId = this.randomizePieceType(COLORS.length);
+		const typeId = this.randomGenerator()
 		this.color = COLORS[typeId];
 		this.shape = SHAPES[typeId];
 		this.x = 0;
@@ -58,5 +60,31 @@ class Piece {
 		return Math.floor(Math.random() * noOfTypes);
 	}
 	
+	randomGenerator(){
+		if(this.bag.length === 0) {
+			this.bag = this.make_new_bag(COLORS.length);
+			
+			//shuffle Array
+			this.bag.sort(() => Math.random() - 0.5);
+			
+			alert(this.bag);
+			
+		}
+				
+		return this.bag.pop();
+		
+	}
+	
+	make_new_bag(bag_count){
+		let bag = [];
+		
+		for(let i = 0; i<bag_count; i++){
+			bag.push(i);
+		}
+		
+		return bag;
+	}
+	
+
 }
 

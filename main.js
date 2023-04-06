@@ -1,6 +1,8 @@
-// https://ui.toast.com/weekly-pick/ko_20191216(frame)
-// 1. 회전시 게임판 밖으로 나가는 문제 해결하기
+// 0. frame
+// https://ui.toast.com/weekly-pick/ko_20191216
+// 1. 회전시 게임판 밖으로 나가는 문제 해결하기(clear)
 // 2. 7bag 방식 도입
+// https://simon.lc/the-history-of-tetris-randomizers
 // 3. hold 기능 도입
 // 4. 40line 모드, 무한모드 등으로 여러 방식의 게임 가능하게 하기
 const canvas = document.getElementById('board');
