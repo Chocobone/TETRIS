@@ -1,22 +1,18 @@
 class Piece {
 		
-	constructor(ctx, ctxNext) {
+	constructor(ctx, typeId) {
 		this.ctx = ctx;
-		this.ctxNext = ctxNext;
-		this.bag = new Array();
-		
+		this.typeId = typeId;
 		this.spawn();
 	}
 	
 	spawn() {
-		const typeId = this.randomGenerator()
-		this.color = COLORS[typeId];
-		this.shape = SHAPES[typeId];
+		this.color = COLORS[this.typeId];
+		this.shape = SHAPES[this.typeId];
 		this.x = 0;
 		this.y = 0;
 		this.hardDropped = false;
 		
-		this.setStartPosition();
 	}
 	
 	test() {
@@ -34,12 +30,12 @@ class Piece {
 		});
 	}
 	
-	drawNext() {
-		this.ctxNext.fillStyle = this.color;
+	drawNext(ctxNext) {
+		ctxNext.fillStyle = this.color;
 		this.shape.forEach((row, y) => {
 			row.forEach((value, x) => {
 				if(value > 0) {
-					this.ctxNext.fillRect(this.x + x, this.y + y, 1, 1);
+					ctxNext.fillRect(this.x + x, this.y + y, 1, 1);
 				}
 			});
 		});
@@ -62,30 +58,5 @@ class Piece {
 		this.hardDropped = true;
 	}
 	
-	//7bag
-	randomGenerator(){
-		if(this.bag.length === 0) {
-			this.bag = this.make_new_bag(COLORS.length);
-			
-			//shuffle Array
-			this.bag.sort(() => Math.random() - 0.5);
-			
-		}
-				
-		return this.bag.pop();
-		
-	}
-	
-	make_new_bag(bag_count){
-		let bag = [];
-		
-		for(let i = 0; i<bag_count; i++){
-			bag.push(i);
-		}
-		
-		return bag;
-	}
-	
-
 }
 

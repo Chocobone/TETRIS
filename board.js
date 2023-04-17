@@ -13,14 +13,16 @@ class Board {
 		this.ctxNext.canvas.width = 4 * BLOCK_SIZE;
 		this.ctxNext.canvas.height = 4 * BLOCK_SIZE;
 		this.ctxNext.scale(BLOCK_SIZE, BLOCK_SIZE);
+		
+		this.bag = new Array();
 	}
 		
 	//grid에 2차원 배열을 넣어줌
 	//board에 piece를 할당함
 	reset() {
 		this.grid = this.getEmptyBoard();
-		this.piece = new Piece(this.ctx, this.ctxNext);
-		
+		this.next = new Piece(this.ctx, this.randomGenerator());
+		this.getNewPiece();
 	}
 	
 	//0으로 채워져 있는 2차원 배열을 만든다
@@ -31,10 +33,13 @@ class Board {
 	}
 		
 	getNewPiece() {
-		this.piece.spawn();
-		// this.ctxNext.clearRect(0, 0, BLOCK_SIZE, BLOCK_SIZE);
-		// this.next.drawNext();
+		this.piece = this.next;	
+		this.piece.setStartPosition();
 		
+		this.next = new Piece(this.ctx, this.randomGenerator());
+		this.ctxNext.clearRect(0, 0, BLOCK_SIZE, BLOCK_SIZE);
+		this.next.drawNext(this.ctxNext);
+				
 	}
 	
 	//블록이 움직일수 있으면 true, 아니면 false를 반환함
@@ -156,5 +161,30 @@ class Board {
          	   lines === 4 ? POINTS.TETRIS : 
         	   0;
 	}
+	
+	//7bag
+	randomGenerator(){
+		if(this.bag.length === 0) {
+			this.bag = this.make_new_bag(COLORS.length);
+			
+			//shuffle Array
+			this.bag.sort(() => Math.random() - 0.5);
+			
+		}
+				
+		return this.bag.pop();
+		
+	}
+	
+	make_new_bag(bag_count){
+		let bag = [];
+		
+		for(let i = 0; i<bag_count; i++){
+			bag.push(i);
+		}
+		
+		return bag;
+	}
+	
 	
 }
