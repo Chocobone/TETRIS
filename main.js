@@ -1,15 +1,20 @@
-// 0. frame
+// 0. frame(clear)
 // https://ui.toast.com/weekly-pick/ko_20191216
 // 1. 회전시 게임판 밖으로 나가는 문제 해결하기(clear)
 // 2. 7bag 방식 도입
 // https://simon.lc/the-history-of-tetris-randomizers
+// 2-1. 7bag 적용 완료 but 다음 블록이 안보이는 문제 발생
 // 3. hold 기능 도입
 // 4. 40line 모드, 무한모드 등으로 여러 방식의 게임 가능하게 하기
+
+
+
 const canvas = document.getElementById('board');
 const ctx = canvas.getContext('2d');
 const canvasNext = document.getElementById('next');
 const ctxNext = canvasNext.getContext('2d');
-
+// const canvasHold = document.getElementById('board');
+// const ctxHold = canvasHold.getContext('2d');
 
 let accountValues = {
 	score: 0,
@@ -94,7 +99,10 @@ function animate(now = 0) {
 	if(time.elapsed > time.level) {
 		time.start = now;
 		
-		board.drop();
+		if(!board.drop()){
+			gameover();
+			return;
+		}
 	}
 	
 	ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);

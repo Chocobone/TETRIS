@@ -1,19 +1,26 @@
 class Piece {
 		
-	constructor(ctx) {
+	constructor(ctx, ctxNext) {
 		this.ctx = ctx;
+		this.ctxNext = ctxNext;
 		this.bag = new Array();
+		
 		this.spawn();
 	}
 	
 	spawn() {
-		// const typeId = this.randomizePieceType(COLORS.length);
 		const typeId = this.randomGenerator()
 		this.color = COLORS[typeId];
 		this.shape = SHAPES[typeId];
 		this.x = 0;
 		this.y = 0;
 		this.hardDropped = false;
+		
+		this.setStartPosition();
+	}
+	
+	test() {
+		alert(this.color);
 	}
 	
 	draw() {
@@ -27,12 +34,12 @@ class Piece {
 		});
 	}
 	
-	drawNext(ctxNext) {
-		ctxNext.fillStyle = this.color;
+	drawNext() {
+		this.ctxNext.fillStyle = this.color;
 		this.shape.forEach((row, y) => {
 			row.forEach((value, x) => {
 				if(value > 0) {
-					ctxNext.fillRect(this.x + x, this.y + y, 1, 1);
+					this.ctxNext.fillRect(this.x + x, this.y + y, 1, 1);
 				}
 			});
 		});
@@ -55,19 +62,13 @@ class Piece {
 		this.hardDropped = true;
 	}
 	
-	//7bag으로 변형 예정
-	randomizePieceType(noOfTypes) {
-		return Math.floor(Math.random() * noOfTypes);
-	}
-	
+	//7bag
 	randomGenerator(){
 		if(this.bag.length === 0) {
 			this.bag = this.make_new_bag(COLORS.length);
 			
 			//shuffle Array
 			this.bag.sort(() => Math.random() - 0.5);
-			
-			alert(this.bag);
 			
 		}
 				

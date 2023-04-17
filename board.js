@@ -19,9 +19,8 @@ class Board {
 	//board에 piece를 할당함
 	reset() {
 		this.grid = this.getEmptyBoard();
+		this.piece = new Piece(this.ctx, this.ctxNext);
 		
-		this.next = new Piece(this.ctx);
-		this.getNewPiece();
 	}
 	
 	//0으로 채워져 있는 2차원 배열을 만든다
@@ -30,14 +29,12 @@ class Board {
 			{length: ROWS}, () => Array(COLS).fill(0)
 		);
 	}
-	
-	getNewPiece() {
-		this.piece = this.next;
-		this.piece.setStartPosition();
 		
-		this.next.spawn();
-		this.ctxNext.clearRect(0, 0, BLOCK_SIZE, BLOCK_SIZE);
-		this.next.drawNext(this.ctxNext);
+	getNewPiece() {
+		this.piece.spawn();
+		// this.ctxNext.clearRect(0, 0, BLOCK_SIZE, BLOCK_SIZE);
+		// this.next.drawNext();
+		
 	}
 	
 	//블록이 움직일수 있으면 true, 아니면 false를 반환함
@@ -88,8 +85,13 @@ class Board {
 			this.piece.move(p);
 		} else {
 			this.freeze();
+			if (this.piece.y === 0) {
+       		 // Game over
+				return false;
+      		}
 			this.getNewPiece();
 		}
+		return true;
 	}
 		
 	freeze() {
@@ -112,6 +114,7 @@ class Board {
 				}
 			});
 		});
+		
 	}
 	
 	draw() {

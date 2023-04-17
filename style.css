@@ -7,6 +7,10 @@
   grid-template-columns: 320px 200px;
 }
 
+.next {
+	border: solid 2px;
+}
+
 .right-column {
   display: flex;
   flex-direction: column;
